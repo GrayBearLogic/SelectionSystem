@@ -1,0 +1,104 @@
+.PAPER A4
+.TITLE     "Selection System"
+.PDF_TITLE "\*[$TITLE]"
+.AUTHOR "GrayBeaverLogic"
+.\" Docheader author style
+.AUTHOR_STYLE LEAD 14
+.ATTRIBUTE_STRING ""  \" Don't print 'by'
+.\" Formatting style, margins
+.PRINTSTYLE TYPESET
+.L_MARGIN   2.5c
+.R_MARGIN   2.5c
+.B_MARGIN   2.5c
+.\" General defaults
+.FAM      H
+.FT       R
+.PT_SIZE  10.5
+.AUTOLEAD 3
+.PARA_INDENT 0  \" No indent because we're spacing paragraphs.
+.\"
+.NEWCOLOUR red RGB #343434
+.CODE_STYLE SIZE 115 COLOR red
+.\"
+.HEADING_STYLE 1 FONT B SIZE +4 BASELINE_ADJUST \n[.v]/5
+.HEADING_STYLE 2 FONT B SIZE +2 BASELINE_ADJUST \n[.v]/5
+.HEADING_STYLE 3 FONT CW SIZE +0 BASELINE_ADJUST \n[.v]/5
+.\"
+.FOOTNOTE_SIZE -1
+.\" Strings for inline code
+.ds cod  \E*[CODE]\&\E*[COND]
+.ds codx \E*[CONDX]\E*[CODE off]\&
+.\" Paragraph spacing
+.PARA_SPACE .3v
+.\"
+.DOCHEADER_ADVANCE 5c \" Begin docheader this distance down from top of page
+.\"
+.START
+
+.HEADING 1 "SelectableComponent"
+.HEADING 2 "Description"
+.PP
+This component is used to make a gameobject selectable.
+You have to add collider to the gameobject to make it work.
+The component provides selection and highlighting support.
+.HEADING 2 "Properties and fields"
+.PP
+.HEADING 3 PARAHEAD "SelectionGroup SelectionGroup {get; set;}"
+is a group this selectable belongs to.
+The object does not have to be the child of the group gameobject.
+.PP
+.HEADING 3 PARAHEAD "bool IsSelected {get;}"
+is the object selected at the moment.
+.HEADING 2 "Methods"
+.PP
+.HEADING 3 PARAHEAD "void Select()"
+select the object without clicking with mouse.
+.PP
+.HEADING 3 PARAHEAD "void Deselect()"
+deselect the object without clicking wit mouse.
+.HEADING 2 "Unity Events"
+.PP
+.HEADING 3 PARAHEAD "selected"
+is called when object is selected.
+It can be selected with mouse or with method \*[cod]Select\*[codx].
+.PP
+.HEADING 3 PARAHEAD "deselected"
+is called when object is deselected.
+It can be deselect with mouse or with method \*[cod]Deselect\*[codx].
+Also it may be deselected when another object is selected.
+.PP
+.HEADING 3 PARAHEAD "highlighted"
+is called when the object is highlighted.
+The object is highlighted when mouse is over it.
+.PP
+.HEADING 3 PARAHEAD "unhighlighted"
+is called when the cursor leaves the object.
+.HEADING 1 "SelectionGroup"
+.HEADING 2 "Description"
+You can use several groups to make independent sets of objects.
+You also can add new objects to group using \*[cod]SelectionGroup\*[codx] property of \*[cod]SelectableComponent\*[codx].
+.HEADING 2 "Properties and fields"
+.PP
+.HEADING 3 PARAHEAD "allowNoneSelected"
+if set \*[cod]true\*[codx], you cannot deselect the last object in the group.
+.PP
+.HEADING 3 PARAHEAD "multipleSelection"
+if set \*[cod]true\*[codx], you can select multiple objects.
+Otherwise, if you select new object the previous selected object deselects.
+.PP
+.HEADING 3 PARAHEAD "firstSelected"
+if \*[cod]allowNoneSelected\*[codx] is set \*[cod]false\*[codx], you have to specify the object,
+that will be selected on the start of the game.
+.PP
+.HEADING 3 PARAHEAD "IEnumerable<selectedObject> AllSelected {get;}"
+all selected objects in this group
+.PP
+.HEADING 3 PARAHEAD "Selected"
+last selected object.
+Returns \*[cod]null\*[codx] if no object is selected.
+More usefull if multiple selection is set off.
+
+.HEADING 2 "Unity Events"
+.PP
+.HEADING 3 PARAHEAD "selectionChanged<SelectionGroup>"
+is called when any object is selected or deselected.
